@@ -3,15 +3,15 @@ require "benchmark"
 require "../src/jdeque"
 
 def work(q)
-    10_000_000.times do |n|
+    100_000_000.times do |n|
         q.push n
     end
 
-    5_000_000.times do
+    50_000_000.times do
         q.pop
     end
 
-    10_000_000.times do |n|
+    100_000_000.times do |n|
         q.push n
     end
 end

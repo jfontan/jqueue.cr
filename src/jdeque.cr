@@ -13,8 +13,9 @@ module Jdeque
       @size = 0
       # @buffer = StaticArray(T, @capacity).new(0)
       # @buffer = [@capacity] of T
-      @buffer = Array(T).new(@capacity)
+      # @buffer = Array(T).new(@capacity)
       # @buffer = uninitialized T[@capacity]
+      @buffer = Pointer(T).malloc(@capacity)
     end
 
     def full?
@@ -38,11 +39,11 @@ module Jdeque
 
       pos = @start + @size
       @size += 1
-      if pos >= @buffer.size
-        @buffer.push v
-      else
+      # if pos >= @buffer.size
+      #   @buffer.push v
+      # else
         @buffer[pos] = v
-      end
+      # end
     end
 
     def pop : T?
