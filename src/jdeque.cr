@@ -11,10 +11,6 @@ module Jdeque
     def initialize(@capacity : Int32, @left : Chunk(T)?, @right : Chunk(T)?)
       @start = 0
       @size = 0
-      # @buffer = StaticArray(T, @capacity).new(0)
-      # @buffer = [@capacity] of T
-      # @buffer = Array(T).new(@capacity)
-      # @buffer = uninitialized T[@capacity]
       @buffer = Pointer(T).malloc(@capacity)
     end
 
@@ -39,11 +35,7 @@ module Jdeque
 
       pos = @start + @size
       @size += 1
-      # if pos >= @buffer.size
-      #   @buffer.push v
-      # else
-        @buffer[pos] = v
-      # end
+      @buffer[pos] = v
     end
 
     def pop : T?
@@ -68,7 +60,7 @@ module Jdeque
       end
 
       head = @head.as(Chunk(T))
-      if head.full?
+      if !head.can_push?
         c = Chunk(T).new(@chunk_size, @head, nil)
         head.right = c
         @head = c
