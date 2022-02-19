@@ -34,12 +34,17 @@ Benchmark.bm do |b|
   end
 end
 
-puts Benchmark.memory {
+puts "jqueue(1024)", Benchmark.memory {
   q = Jdeque::Queue(Int32).new(1024)
   work(q)
 }
 
-puts Benchmark.memory {
+puts "jqueue(1024000)", Benchmark.memory {
+  q = Jdeque::Queue(Int32).new(1024000)
+  work(q)
+}
+
+puts "deque", Benchmark.memory {
   q = Deque(Int32).new
   work(q)
 }
